@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Domain Audit & Email Deliverability Report</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      background-color: #fff;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #eaeaea;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .status {
+      font-weight: bold;
+      color: green;
+    }
+    .warning {
+      color: #e67e22;
+    }
+    .fail {
+      color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Domain Audit & Email Deliverability Report</h1>
+  <p><strong>Domain:</strong> example.com</p>
+  <p><strong>Date:</strong> YYYY-MM-DD</p>
+  <p><strong>Status:</strong> <span class="status">Good</span></p>
+
+  <h2>1. DNS Records Overview</h2>
+  <table>
+    <tr><th>Record Type</th><th>Present?</th><th>Status</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>SPF</td><td>Yes</td><td class="status">Valid</td><td>v=spf1 include:_spf.google.com ~all</td><td>Google Workspace</td></tr>
+    <tr><td>DKIM</td><td>Yes</td><td class="status">Valid</td><td>k=rsa; p=MIGfMA0...</td><td>Selector: google</td></tr>
+    <tr><td>DMARC</td><td>Yes</td><td class="status">Valid</td><td>v=DMARC1; p=none; rua=mailto:admin@example.com</td><td>Upgrade policy to quarantine</td></tr>
+    <tr><td>BIMI</td><td>No</td><td>N/A</td><td>—</td><td>Optional</td></tr>
+  </table>
+
+  <h2>2. Reputation & Blacklist Status</h2>
+  <table>
+    <tr><th>Checker</th><th>Status</th><th>Notes</th></tr>
+    <tr><td>Google Postmaster</td><td class="status">Good</td><td>Low spam complaints</td></tr>
+    <tr><td>SenderScore</td><td class="status">98/100</td><td>Excellent reputation</td></tr>
+    <tr><td>Talos</td><td>Neutral</td><td>No threats</td></tr>
+    <tr><td>MXToolbox</td><td class="status">Clean</td><td>0/88 blacklists</td></tr>
+  </table>
+
+  <h2>3. Inbox Delivery Test</h2>
+  <table>
+    <tr><th>Provider</th><th>Inbox/Spam</th><th>Notes</th></tr>
+    <tr><td>Gmail</td><td>Inbox</td><td>Aligned</td></tr>
+    <tr><td>Outlook</td><td>Inbox</td><td>Passed DMARC</td></tr>
+    <tr><td>Yahoo</td><td class="warning">Spam</td><td>May contain flagged keywords</td></tr>
+    <tr><td>Zoho</td><td>Inbox</td><td>Valid headers</td></tr>
+  </table>
+
+  <h2>4. DMARC Report Summary</h2>
+  <table>
+    <tr><th>Source</th><th>Alignment</th><th>Volume</th><th>Auth Failures</th></tr>
+    <tr><td>Google</td><td>Pass</td><td>500</td><td>0</td></tr>
+    <tr><td>Mailgun</td><td>Pass</td><td>120</td><td>0</td></tr>
+    <tr><td>Unknown IPs</td><td class="fail">Fail</td><td>7</td><td>Investigate</td></tr>
+  </table>
+
+  <h2>5. Email Content & Headers</h2>
+  <table>
+    <tr><th>Check</th><th>Status</th><th>Notes</th></tr>
+    <tr><td>Reply-To Header</td><td>Present</td><td>Matches sender</td></tr>
+    <tr><td>MIME Format</td><td>Valid</td><td>Text + HTML</td></tr>
+    <tr><td>Spam Keywords</td><td class="warning">Minor</td><td>Review subject</td></tr>
+    <tr><td>Unsubscribe Link</td><td>Present</td><td>Compliant</td></tr>
+  </table>
+
+  <h2>6. Recommendations</h2>
+  <ul>
+    <li>Switch DMARC policy from <code>p=none</code> to <code>p=quarantine</code> after validation</li>
+    <li>Investigate unknown IPs in DMARC report</li>
+    <li>Ensure all ESPs are SPF/DKIM aligned</li>
+    <li>Consider implementing BIMI</li>
+    <li>Retest Yahoo with updated subject/content</li>
+  </ul>
+</body>
+</html>

@@ -255,6 +255,119 @@ tr:last-child td {
   border: 1px solid var(--border-color);
 }
 
+/* Recommendations Section */
+.recommendations-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 1rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+.priority-group {
+  margin-bottom: 1.5rem;
+}
+
+.priority-group:last-child {
+  margin-bottom: 0;
+}
+
+.priority-group h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  color: var(--heading-color);
+}
+
+.priority-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.priority-group li {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background: var(--neutral-light);
+  border-radius: 8px;
+}
+
+.priority-group li:last-child {
+  margin-bottom: 0;
+}
+
+.priority-group .severity {
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* Conclusion Section */
+.conclusion-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin: 1rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+}
+
+.conclusion-content {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.conclusion-content h3 {
+  color: var(--heading-color);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary-light);
+}
+
+.overall-status ul,
+.next-steps ol,
+.monitoring-plan ul {
+  padding-left: 1.5rem;
+  margin: 0.75rem 0;
+}
+
+.overall-status li,
+.next-steps li,
+.monitoring-plan li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.next-steps ol {
+  counter-reset: steps;
+}
+
+.next-steps li {
+  position: relative;
+  padding-left: 0.5rem;
+}
+
+.next-steps li::marker {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.monitoring-plan ul {
+  list-style-type: none;
+}
+
+.monitoring-plan li::before {
+  content: "•";
+  color: var(--primary-color);
+  font-weight: bold;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1em;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
@@ -273,6 +386,19 @@ tr:last-child td {
   table {
     display: block;
     overflow-x: auto;
+  }
+
+  .conclusion-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .priority-group li {
+    flex-direction: column;
+  }
+
+  .priority-group .severity {
+    margin-bottom: 0.5rem;
   }
 }
 

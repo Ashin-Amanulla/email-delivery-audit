@@ -272,25 +272,9 @@
       </table>
 
       <h2
-        data-tooltip="Prioritized actions to improve email deliverability and security. Recommendations are based on impact level and implementation effort. Focus on Critical and High priority items first."
-      >
-        6. Recommendations <span class="info-icon">i</span>
-      </h2>
-      <ul>
-        <li>
-          Switch DMARC policy from <code>p=none</code> to
-          <code>p=quarantine</code> after validation
-        </li>
-        <li>Investigate unknown IPs in DMARC report</li>
-        <li>Ensure all ESPs are SPF/DKIM aligned</li>
-        <li>Consider implementing BIMI</li>
-        <li>Retest Yahoo with updated subject/content</li>
-      </ul>
-
-      <h2
         data-tooltip="Compliance with major email regulations (GDPR, CAN-SPAM, CASL). Non-compliance can result in significant fines. Current status: Mostly compliant with some CASL documentation needed. Regular audits required."
       >
-        7. Compliance Status <span class="info-icon">i</span>
+        6. Compliance Status <span class="info-icon">i</span>
       </h2>
       <table>
         <tr>
@@ -322,7 +306,7 @@
       <h2
         data-tooltip="Time-sensitive tasks to address identified issues. Organized by severity (Critical: 24-48h, High: 1 week, Medium: 2 weeks, Low: 1 month). Track and update status regularly."
       >
-        8. Action Items <span class="info-icon">i</span>
+        7. Action Items <span class="info-icon">i</span>
       </h2>
       <table>
         <tr>
@@ -364,6 +348,108 @@
           Delivery Metrics Trend <span class="info-icon">i</span>
         </h3>
         <canvas id="deliveryChart"></canvas>
+      </div>
+
+      <h2
+        data-tooltip="Prioritized actions to improve email deliverability and security. Recommendations are based on impact level and implementation effort. Focus on Critical and High priority items first."
+      >
+        8. Recommendations <span class="info-icon">i</span>
+      </h2>
+      <div class="recommendations-section">
+        <div class="priority-group critical-priority">
+          <h3>Critical Priority</h3>
+          <ul>
+            <li>
+              <span class="severity critical">Critical</span>
+              Fix Yahoo delivery issues by reviewing and updating content
+              filters
+            </li>
+          </ul>
+        </div>
+
+        <div class="priority-group high-priority">
+          <h3>High Priority</h3>
+          <ul>
+            <li>
+              <span class="severity high">High</span>
+              Switch DMARC policy from <code>p=none</code> to
+              <code>p=quarantine</code> after validation
+            </li>
+            <li>
+              <span class="severity high">High</span>
+              Investigate unknown IPs in DMARC report
+            </li>
+          </ul>
+        </div>
+
+        <div class="priority-group medium-priority">
+          <h3>Medium Priority</h3>
+          <ul>
+            <li>
+              <span class="severity medium">Medium</span>
+              Ensure all ESPs are SPF/DKIM aligned
+            </li>
+            <li>
+              <span class="severity medium">Medium</span>
+              Update CASL compliance documentation
+            </li>
+          </ul>
+        </div>
+
+        <div class="priority-group low-priority">
+          <h3>Low Priority</h3>
+          <ul>
+            <li>
+              <span class="severity low">Low</span>
+              Consider implementing BIMI for enhanced brand visibility
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="conclusion-section">
+        <h2
+          data-tooltip="Overall assessment and next steps for improving email deliverability and maintaining compliance."
+        >
+          9. Conclusion & Next Steps <span class="info-icon">i</span>
+        </h2>
+        <div class="conclusion-content">
+          <div class="overall-status">
+            <h3>Overall Status</h3>
+            <p>
+              Domain shows good overall health (85/100) with specific areas
+              requiring attention:
+            </p>
+            <ul>
+              <li>
+                <strong>Strengths:</strong> High authentication pass rate
+                (99.1%), low bounce rate (1.2%), clean blacklist status
+              </li>
+              <li>
+                <strong>Improvements Needed:</strong> Yahoo delivery issues,
+                DMARC policy strength, CASL compliance documentation
+              </li>
+            </ul>
+          </div>
+
+          <div class="next-steps">
+            <h3>Immediate Next Steps</h3>
+            <ol>
+              <li>Address Yahoo delivery issues within 48 hours</li>
+              <li>Schedule DMARC policy update for next week</li>
+              <li>Complete CASL documentation update by month-end</li>
+            </ol>
+          </div>
+
+          <div class="monitoring-plan">
+            <h3>Ongoing Monitoring</h3>
+            <ul>
+              <li>Daily: Monitor delivery rates and spam placement</li>
+              <li>Weekly: Review DMARC reports and authentication status</li>
+              <li>Monthly: Full compliance and reputation audit</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
 

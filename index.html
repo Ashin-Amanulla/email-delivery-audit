@@ -1,105 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Domain Audit & Email Deliverability Report</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f9f9f9;
-      color: #333;
-    }
-    h1, h2 {
-      color: #2c3e50;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 1rem 0;
-      background-color: #fff;
-    }
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-    th {
-      background-color: #eaeaea;
-    }
-    ul {
-      padding-left: 1.2rem;
-    }
-    .status {
-      font-weight: bold;
-      color: green;
-    }
-    .warning {
-      color: #e67e22;
-    }
-    .fail {
-      color: #c0392b;
-    }
-  </style>
-</head>
-<body>
-  <h1>Domain Audit & Email Deliverability Report</h1>
-  <p><strong>Domain:</strong> example.com</p>
-  <p><strong>Date:</strong> YYYY-MM-DD</p>
-  <p><strong>Status:</strong> <span class="status">Good</span></p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Domain Audit & Email Deliverability Report</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1
+          data-tooltip="Comprehensive analysis of your domain's email sending reputation and deliverability metrics"
+        >
+          Domain Audit & Email Deliverability Report
+          <span class="info-icon">i</span>
+        </h1>
+        <p><strong>Domain:</strong> example.com</p>
+        <p>
+          <strong>Date:</strong>
+          <script>
+            document.write(new Date().toISOString().split("T")[0]);
+          </script>
+        </p>
+        <p>
+          <strong>Overall Health:</strong> <span class="status">85/100</span>
+        </p>
+      </div>
 
-  <h2>1. DNS Records Overview</h2>
-  <table>
-    <tr><th>Record Type</th><th>Present?</th><th>Status</th><th>Value</th><th>Notes</th></tr>
-    <tr><td>SPF</td><td>Yes</td><td class="status">Valid</td><td>v=spf1 include:_spf.google.com ~all</td><td>Google Workspace</td></tr>
-    <tr><td>DKIM</td><td>Yes</td><td class="status">Valid</td><td>k=rsa; p=MIGfMA0...</td><td>Selector: google</td></tr>
-    <tr><td>DMARC</td><td>Yes</td><td class="status">Valid</td><td>v=DMARC1; p=none; rua=mailto:admin@example.com</td><td>Upgrade policy to quarantine</td></tr>
-    <tr><td>BIMI</td><td>No</td><td>N/A</td><td>—</td><td>Optional</td></tr>
-  </table>
+      <div class="executive-summary">
+        <h2
+          data-tooltip="Quick overview of the most important findings and critical issues that need attention"
+        >
+          Executive Summary <span class="info-icon">i</span>
+        </h2>
+        <p>
+          Domain shows good overall health with some areas requiring attention.
+          Key findings:
+        </p>
+        <ul>
+          <li>
+            <span class="severity critical">Critical</span> Yahoo delivery
+            issues detected
+          </li>
+          <li>
+            <span class="severity high">High</span> DMARC policy needs
+            strengthening
+          </li>
+          <li>
+            <span class="severity medium">Medium</span> Unknown IPs detected in
+            DMARC reports
+          </li>
+          <li>
+            <span class="severity low">Low</span> BIMI implementation
+            recommended
+          </li>
+        </ul>
+      </div>
 
-  <h2>2. Reputation & Blacklist Status</h2>
-  <table>
-    <tr><th>Checker</th><th>Status</th><th>Notes</th></tr>
-    <tr><td>Google Postmaster</td><td class="status">Good</td><td>Low spam complaints</td></tr>
-    <tr><td>SenderScore</td><td class="status">98/100</td><td>Excellent reputation</td></tr>
-    <tr><td>Talos</td><td>Neutral</td><td>No threats</td></tr>
-    <tr><td>MXToolbox</td><td class="status">Clean</td><td>0/88 blacklists</td></tr>
-  </table>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <h3
+            data-tooltip="Percentage of emails successfully delivered to recipient inboxes"
+          >
+            Delivery Rate <span class="info-icon">i</span>
+          </h3>
+          <div class="metric-value trend-up">98.5%</div>
+          <p class="neutral">Last 30 days</p>
+        </div>
+        <div class="metric-card">
+          <h3
+            data-tooltip="Percentage of emails that were rejected by recipient servers"
+          >
+            Bounce Rate <span class="info-icon">i</span>
+          </h3>
+          <div class="metric-value trend-down">1.2%</div>
+          <p class="neutral">Last 30 days</p>
+        </div>
+        <div class="metric-card">
+          <h3
+            data-tooltip="Percentage of delivered emails marked as spam by recipients"
+          >
+            Spam Rate <span class="info-icon">i</span>
+          </h3>
+          <div class="metric-value">0.3%</div>
+          <p class="neutral">Last 30 days</p>
+        </div>
+        <div class="metric-card">
+          <h3
+            data-tooltip="Percentage of emails passing all authentication checks"
+          >
+            Authentication Pass <span class="info-icon">i</span>
+          </h3>
+          <div class="metric-value trend-up">99.1%</div>
+          <p class="neutral">Last 30 days</p>
+        </div>
+      </div>
 
-  <h2>3. Inbox Delivery Test</h2>
-  <table>
-    <tr><th>Provider</th><th>Inbox/Spam</th><th>Notes</th></tr>
-    <tr><td>Gmail</td><td>Inbox</td><td>Aligned</td></tr>
-    <tr><td>Outlook</td><td>Inbox</td><td>Passed DMARC</td></tr>
-    <tr><td>Yahoo</td><td class="warning">Spam</td><td>May contain flagged keywords</td></tr>
-    <tr><td>Zoho</td><td>Inbox</td><td>Valid headers</td></tr>
-  </table>
+      <h2
+        data-tooltip="Analysis of SPF, DKIM, DMARC, and BIMI records - crucial for email authentication and security"
+      >
+        1. DNS Records Overview <span class="info-icon">i</span>
+      </h2>
+      <table>
+        <tr>
+          <th>Record Type</th>
+          <th>Present?</th>
+          <th>Status</th>
+          <th>Value</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>SPF</td>
+          <td>Yes</td>
+          <td class="status">Valid</td>
+          <td>v=spf1 include:_spf.google.com ~all</td>
+          <td>Google Workspace</td>
+        </tr>
+        <tr>
+          <td>DKIM</td>
+          <td>Yes</td>
+          <td class="status">Valid</td>
+          <td>k=rsa; p=MIGfMA0...</td>
+          <td>Selector: google</td>
+        </tr>
+        <tr>
+          <td>DMARC</td>
+          <td>Yes</td>
+          <td class="status">Valid</td>
+          <td>v=DMARC1; p=none; rua=mailto:admin@example.com</td>
+          <td>Upgrade policy to quarantine</td>
+        </tr>
+        <tr>
+          <td>BIMI</td>
+          <td>No</td>
+          <td>N/A</td>
+          <td>—</td>
+          <td>Optional</td>
+        </tr>
+      </table>
 
-  <h2>4. DMARC Report Summary</h2>
-  <table>
-    <tr><th>Source</th><th>Alignment</th><th>Volume</th><th>Auth Failures</th></tr>
-    <tr><td>Google</td><td>Pass</td><td>500</td><td>0</td></tr>
-    <tr><td>Mailgun</td><td>Pass</td><td>120</td><td>0</td></tr>
-    <tr><td>Unknown IPs</td><td class="fail">Fail</td><td>7</td><td>Investigate</td></tr>
-  </table>
+      <h2
+        data-tooltip="Your domain's standing with major email providers and blacklist operators"
+      >
+        2. Reputation & Blacklist Status <span class="info-icon">i</span>
+      </h2>
+      <table>
+        <tr>
+          <th>Checker</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>Google Postmaster</td>
+          <td class="status">Good</td>
+          <td>Low spam complaints</td>
+        </tr>
+        <tr>
+          <td>SenderScore</td>
+          <td class="status">98/100</td>
+          <td>Excellent reputation</td>
+        </tr>
+        <tr>
+          <td>Talos</td>
+          <td>Neutral</td>
+          <td>No threats</td>
+        </tr>
+        <tr>
+          <td>MXToolbox</td>
+          <td class="status">Clean</td>
+          <td>0/88 blacklists</td>
+        </tr>
+      </table>
 
-  <h2>5. Email Content & Headers</h2>
-  <table>
-    <tr><th>Check</th><th>Status</th><th>Notes</th></tr>
-    <tr><td>Reply-To Header</td><td>Present</td><td>Matches sender</td></tr>
-    <tr><td>MIME Format</td><td>Valid</td><td>Text + HTML</td></tr>
-    <tr><td>Spam Keywords</td><td class="warning">Minor</td><td>Review subject</td></tr>
-    <tr><td>Unsubscribe Link</td><td>Present</td><td>Compliant</td></tr>
-  </table>
+      <h2
+        data-tooltip="Real-world testing results showing where your emails land across different email providers"
+      >
+        3. Inbox Delivery Test <span class="info-icon">i</span>
+      </h2>
+      <table>
+        <tr>
+          <th>Provider</th>
+          <th>Inbox/Spam</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>Gmail</td>
+          <td>Inbox</td>
+          <td>Aligned</td>
+        </tr>
+        <tr>
+          <td>Outlook</td>
+          <td>Inbox</td>
+          <td>Passed DMARC</td>
+        </tr>
+        <tr>
+          <td>Yahoo</td>
+          <td class="warning">Spam</td>
+          <td>May contain flagged keywords</td>
+        </tr>
+        <tr>
+          <td>Zoho</td>
+          <td>Inbox</td>
+          <td>Valid headers</td>
+        </tr>
+      </table>
 
-  <h2>6. Recommendations</h2>
-  <ul>
-    <li>Switch DMARC policy from <code>p=none</code> to <code>p=quarantine</code> after validation</li>
-    <li>Investigate unknown IPs in DMARC report</li>
-    <li>Ensure all ESPs are SPF/DKIM aligned</li>
-    <li>Consider implementing BIMI</li>
-    <li>Retest Yahoo with updated subject/content</li>
-  </ul>
-</body>
+      <h2
+        data-tooltip="Analysis of DMARC authentication results and potential security issues"
+      >
+        4. DMARC Report Summary <span class="info-icon">i</span>
+      </h2>
+      <table>
+        <tr>
+          <th>Source</th>
+          <th>Alignment</th>
+          <th>Volume</th>
+          <th>Auth Failures</th>
+        </tr>
+        <tr>
+          <td>Google</td>
+          <td>Pass</td>
+          <td>500</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Mailgun</td>
+          <td>Pass</td>
+          <td>120</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Unknown IPs</td>
+          <td class="fail">Fail</td>
+          <td>7</td>
+          <td>Investigate</td>
+        </tr>
+      </table>
+
+      <h2
+        data-tooltip="Technical analysis of email headers and content for compliance and deliverability"
+      >
+        5. Email Content & Headers <span class="info-icon">i</span>
+      </h2>
+      <table>
+        <tr>
+          <th>Check</th>
+          <th>Status</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>Reply-To Header</td>
+          <td>Present</td>
+          <td>Matches sender</td>
+        </tr>
+        <tr>
+          <td>MIME Format</td>
+          <td>Valid</td>
+          <td>Text + HTML</td>
+        </tr>
+        <tr>
+          <td>Spam Keywords</td>
+          <td class="warning">Minor</td>
+          <td>Review subject</td>
+        </tr>
+        <tr>
+          <td>Unsubscribe Link</td>
+          <td>Present</td>
+          <td>Compliant</td>
+        </tr>
+      </table>
+
+      <h2
+        data-tooltip="Prioritized list of actions to improve email deliverability and security"
+      >
+        6. Recommendations <span class="info-icon">i</span>
+      </h2>
+      <ul>
+        <li>
+          Switch DMARC policy from <code>p=none</code> to
+          <code>p=quarantine</code> after validation
+        </li>
+        <li>Investigate unknown IPs in DMARC report</li>
+        <li>Ensure all ESPs are SPF/DKIM aligned</li>
+        <li>Consider implementing BIMI</li>
+        <li>Retest Yahoo with updated subject/content</li>
+      </ul>
+
+      <h2
+        data-tooltip="Current status of compliance with major email and privacy regulations"
+      >
+        7. Compliance Status <span class="info-icon">i</span>
+      </h2>
+      <table>
+        <tr>
+          <th>Regulation</th>
+          <th>Status</th>
+          <th>Last Checked</th>
+          <th>Notes</th>
+        </tr>
+        <tr>
+          <td>GDPR</td>
+          <td class="status">Compliant</td>
+          <td>2024-03-20</td>
+          <td>All requirements met</td>
+        </tr>
+        <tr>
+          <td>CAN-SPAM</td>
+          <td class="status">Compliant</td>
+          <td>2024-03-20</td>
+          <td>Physical address present</td>
+        </tr>
+        <tr>
+          <td>CASL</td>
+          <td class="warning">Partial</td>
+          <td>2024-03-20</td>
+          <td>Consent records needed</td>
+        </tr>
+      </table>
+
+      <h2
+        data-tooltip="Prioritized tasks with deadlines to address identified issues"
+      >
+        8. Action Items <span class="info-icon">i</span>
+      </h2>
+      <table>
+        <tr>
+          <th>Task</th>
+          <th>Severity</th>
+          <th>Deadline</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>Fix Yahoo delivery issues</td>
+          <td><span class="severity critical">Critical</span></td>
+          <td>2024-03-25</td>
+          <td>Pending</td>
+        </tr>
+        <tr>
+          <td>Implement DMARC quarantine policy</td>
+          <td><span class="severity high">High</span></td>
+          <td>2024-04-01</td>
+          <td>Planned</td>
+        </tr>
+        <tr>
+          <td>Investigate unknown IPs</td>
+          <td><span class="severity medium">Medium</span></td>
+          <td>2024-03-28</td>
+          <td>In Progress</td>
+        </tr>
+        <tr>
+          <td>Implement BIMI</td>
+          <td><span class="severity low">Low</span></td>
+          <td>2024-04-15</td>
+          <td>Planned</td>
+        </tr>
+      </table>
+
+      <div class="chart-container">
+        <h3
+          data-tooltip="Visual representation of delivery performance trends over the past 30 days"
+        >
+          Delivery Metrics Trend <span class="info-icon">i</span>
+        </h3>
+        <canvas id="deliveryChart"></canvas>
+      </div>
+    </div>
+
+    <script>
+      // Delivery Trends Chart
+      const ctx = document.getElementById("deliveryChart").getContext("2d");
+      new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+          datasets: [
+            {
+              label: "Inbox Placement Rate",
+              data: [97, 98, 98.5, 98.7],
+              borderColor: "#27ae60",
+              tension: 0.1,
+            },
+            {
+              label: "Bounce Rate",
+              data: [1.5, 1.3, 1.2, 1.1],
+              borderColor: "#e74c3c",
+              tension: 0.1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: "Delivery Metrics Trend (30 Days)",
+            },
+          },
+        },
+      });
+    </script>
+  </body>
 </html>
